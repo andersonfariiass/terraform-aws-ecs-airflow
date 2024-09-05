@@ -1,0 +1,27 @@
+version: ">=0.16.0"
+formatter: markdown
+
+header-from: main.tf
+footer-from: ""
+
+sections:
+  hide:
+    - providers
+
+output:
+  file: README.md
+  mode: inject
+sort:
+  enabled: true
+  by: "required"
+
+settings:
+  anchor: false
+  color: true
+  default: true
+  escape: true
+  html: false
+  indent: 2
+  required: true
+  sensitive: true
+  type: true

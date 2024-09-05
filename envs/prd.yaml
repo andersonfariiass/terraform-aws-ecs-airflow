@@ -1,0 +1,125 @@
+workspace:
+  prd:
+    tags:
+      time: "INFRA"
+      aplicacao: "Cluster ECS Airflow"
+    cluster_ecs:
+      name: "airflow"
+      security_group:
+        name_suffix: "sg-ecs-airflow"
+    service_web:
+      - name: "airflow-web"
+        cpu: 512
+        memory: 2048
+        containerport: 8080
+        protocol: tcp
+        desired_count: 1
+        launch_type: "fargate"
+        capacity_provider: "FARGATE"
+        weight: 1
+        base: 1
+        image: "apache/airflow:2.9.3"
+    service_init:
+    - name: "airflow-init"
+      cpu: 512
+      memory: 2048
+      #containerport: 80
+      #protocol: tcp
+      launch_type: "fargate"
+      capacity_provider: "FARGATE_SPOT"
+      weight: 1
+      base: 1
+      image: "apache/airflow:2.9.3"
+    service_scheduler:
+    - name: "airflow-schedule"
+      cpu: 512
+      memory: 2048
+      containerport: 80
+      protocol: tcp
+      launch_type: "fargate"
+      capacity_provider: "FARGATE_SPOT"
+      weight: 1
+      base: 1
+      image: "apache/airflow:2.9.3"
+      command: "scheduler"
+    service_worker:
+      - name: "airflow-worker"
+        cpu: 512
+        memory: 2048
+        containerport: 8793
+        protocol: tcp
+        launch_type: "fargate"
+        capacity_provider: "FARGATE_SPOT"
+        weight: 1
+        base: 1
+        image: "apache/airflow:2.9.3"
+        command: 
+        - "celery"
+        - "worker"
+    service_redis:
+      - name: "airflow-redis"
+        cpu: 1024
+        memory: 2048
+        containerport: 6379
+        protocol: tcp
+        launch_type: "fargate"
+        capacity_provider: "FARGATE"
+        weight: 1
+        base: 1
+        image: redis:latest
+    loadbalancer:
+      elbs:
+      - name: "alb-airflow"
+        loadbalancer_type: "application"
+        scheme: "internal"
+        deletion_protection: false
+        certificate_arn: arn:aws:acm:us-east-1:my_account_id:certificate/certificate_id
+        internal: false
+        # https_listeners :
+        #   - port               : 443
+        #     protocol           : "HTTPS"
+        #     certificate_arn    : arn:aws:acm:us-east-1
+        #     target_group_index : 0
+        target_groups:
+            name: "tg-airflow"
+            backend_protocol                  : "HTTP"
+            backend_port                      : 3000
+            target_type                       : "ip"
+            deregistration_delay              : 10
+            load_balancing_cross_zone_enabled : true
+            protocol_version: "HTTP1"
+            health_check:
+              enabled             : true
+              interval            : 30
+              path                : "/health"
+              port                : "traffic-port"
+              healthy_threshold   : 3
+              unhealthy_threshold : 3
+              timeout             : 6
+              protocol            : "HTTP"
+              matcher             : "200"
+    rds:
+      dbs:
+          name: "rds-airflow"
+          identifier: "db-airflow"
+          db_name: "airflow"
+          db_type: "rds"
+          environment_name: "prd"
+          user: "airflowadmin"
+          create_db_parameter_group: true
+          create_db_subnet_group: true
+          engine: "postgres"
+          engine_version: 13
+          major_engine_version: 13
+          family: "postgres13"
+          instance_class: "db.t3.medium"
+          allocated_storage: 25
+          max_allocated_storage: 100
+          storage_encrypted: false
+          storage_type: "gp3"
+          rds_apply_immediately: true
+          multi_az: false
+          security_group:
+            name_suffix: "sg-rds-airflow"
+
+
