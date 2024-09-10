@@ -14,7 +14,7 @@ variable "cluster_settings" {
   default = [
     {
       name  = "containerInsights"
-      value = "disabled"
+      value = "enabled"
     }
   ]
 }

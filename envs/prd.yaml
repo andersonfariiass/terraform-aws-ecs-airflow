@@ -74,7 +74,7 @@ workspace:
         scheme: "internal"
         deletion_protection: false
         certificate_arn: arn:aws:acm:us-east-1:my_account_id:certificate/certificate_id
-        internal: false
+        internal: true
         # https_listeners :
         #   - port               : 443
         #     protocol           : "HTTPS"
