@@ -45,8 +45,6 @@ data "aws_lb_target_group" "tg_airflow" {
   depends_on = [module.alb]
 }
 
-#
-
 # data "aws_secretsmanager_secret_version" "rds" {
 #   secret_id = "${module.secrets_manager.secret_id}"
 # }

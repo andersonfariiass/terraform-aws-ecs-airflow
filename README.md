@@ -36,7 +36,7 @@ O codigo provisiona os seguintes recursos:
 | ecs\_service\_airflow\_worker | terraform-aws-modules/ecs/aws//modules/service | 5.11.3 |
 | ecs\_services\_sg | terraform-aws-modules/security-group/aws | 5.1.2 |
 | rds | terraform-aws-modules/rds/aws | 6.7.0 |
-| vpc | git::git@bitbucket.org:brlink-cloud/terraform-aws-brlink-vpc.git | 2.0.0 |
+| rds\_sg | terraform-aws-modules/security-group/aws | 5.1.2 |
 
 ## Resources
 
@@ -48,7 +48,13 @@ O codigo provisiona os seguintes recursos:
 | [bcrypt_hash.rds](https://registry.terraform.io/providers/viktorradnai/bcrypt/latest/docs/resources/hash) | resource |
 | [random_password.rds](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_lb_target_group.tg_airflow](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/lb_target_group) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_subnet_ids.subnet_ids](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnet_ids) | data source |
+| [aws_subnets.private_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_subnets.public_subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_subnets.subnet_id](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/subnets) | data source |
+| [aws_vpc.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) | data source |
 | [aws_vpcs.vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpcs) | data source |
 
 ## Inputs
