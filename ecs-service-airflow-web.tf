@@ -35,7 +35,7 @@ module "ecs_service_airflow_web" {
         }
       ]
       command = ["webserver"]
-      
+
       secrets = [
         {
           "name" : "AIRFLOW__CORE__SQL_ALCHEMY_CONN",

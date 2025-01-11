@@ -29,7 +29,7 @@ data "aws_subnets" "private_subnet" {
     name   = "tag:Name"
     values = ["*private*"]
   }
-  depends_on = [ module.vpc ]
+  depends_on = [module.vpc]
 }
 
 data "aws_subnets" "public_subnet" {
@@ -37,7 +37,7 @@ data "aws_subnets" "public_subnet" {
     name   = "tag:Name"
     values = ["*public*"]
   }
-  depends_on = [ module.vpc ]
+  depends_on = [module.vpc]
 }
 
 data "aws_lb_target_group" "tg_airflow" {

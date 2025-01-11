@@ -6,10 +6,10 @@ locals {
   redis_connection_string = "redis://:@${local.workspace.service_redis[0].name}:6379/0"
 
   tags = {
-    IAC             = "SIM"
-    AMBIENTE        = upper(var.env)
-    TIME            = local.workspace.tags.time
-    APLICACAO       = local.workspace.tags.aplicacao
+    IAC       = "SIM"
+    AMBIENTE  = upper(var.env)
+    TIME      = local.workspace.tags.time
+    APLICACAO = local.workspace.tags.aplicacao
   }
 
   secret_tags = {
